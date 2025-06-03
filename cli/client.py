@@ -14,10 +14,14 @@ async def run(mcp_server: MCPServer):
         model_settings=ModelSettings(tool_choice="required"),
     )
 
-    message = "renovated townhouse in 3153 with 4 bedrooms and 2 bathrooms"
-    print(f"Running: {message}")
-    result = await Runner.run(starting_agent=agent, input=message)
-    print(result.final_output)
+    while True:
+        message = input("Enter your query (or type 'quit' to exit): ").strip()
+        if message.lower() in {"quit", "exit"}:
+            print("Exiting.")
+            break
+        print(f"Running: {message}")
+        result = await Runner.run(starting_agent=agent, input=message)
+        print(result.final_output)
 
 
 async def main():
