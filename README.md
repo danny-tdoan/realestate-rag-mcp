@@ -1,34 +1,82 @@
+# RealEstate MCP
+Search and answer questions about real estate properties in Australia. This project provides tools , and run a FastAPI server to provide a natural language property search API.
+
+The system includes:
+1. An indexing pipeline that downloads property data and populates a vector database for semantic search
+2. An MCP server with different search tools
+3. A demo client that sends queries and display results
+
+![alt text](image.png)
 # Examples
 
 ```
-Enter your query (or type 'quit' to exit): list 5 units in Mitcham with 2 bedrooms
-Running: list 5 units in Mitcham with 2 bedrooms
-Here are five 2-bedroom units in Mitcham:
+Enter your query (or type 'quit' to exit): list 3 renovated houses with 4 bedrooms in Camberwell high school zone
 
-1. **2/377 Mitcham Road, Mitcham VIC 3132**
-   - Nestled within a boutique block of just three units.
-   - Immaculate single-level unit.
-   - Conveniently located near Mitcham Station, cafes, and shops.
+Here are some renovated houses with 4 bedrooms located in the Camberwell High School zone:
 
-2. **1/37 Hedge End Road, Mitcham VIC 3132**
-   - Extensively renovated three-bedroom weatherboard home.
-   - High-quality fixtures and fittings.
-   - Designed with energy efficiency in mind.
+1. **3/2-4 Georgina Parade, Camberwell VIC 3124**
+   - Immaculately renovated throughout, this property boasts sleek modern style in a peaceful and private location. It's close to Hartwell Shopping Centre, Willison Park, and public transport.
 
-3. **3/19 Halls Parade, Mitcham VIC 3132**
-   - Single-level brick home.
-   - Offers space, style, and convenience.
-   - Located in a sought-after street in Mitcham.
+2. **2/22 Russell Street, Camberwell VIC 3124**
+   - This single-level boutique residence has been stylishly refurbished. Located on a prestigious tree-lined street, it offers sun-drenched dimensions for luxurious living and is near Camberwell Junction.
 
-4. **1/581 Whitehorse Road, Mitcham VIC 3132**
-   - Town residence with a deep landscaped garden frontage.
-   - Quiet area with a low-traffic service road.
-   - Perfect for young families, empty nesters, or investors.
+3. **6 Donna Buang Street, Camberwell VIC 3124**
+   - Positioned in a picturesque, tree-lined street, this property presents an opportunity to build a family home or develop further. It's conveniently located for access to local schools.
 
-5. **13 Carween Avenue, Mitcham VIC 3132**
-   - Renovated family residence.
-   - Offers multiple living zones and kitchens.
-   - Situated on a large landscaped allotment.
+Each property offers unique features and is ideally situated within the Camberwell High School zone.
+```
 
-Let me know if you need more details!
+## 1. Download Data with `run_ingest_pipeline`
+
+This script downloads property details and auction results for a given city and date range.
+
+**Usage:**
+
+```sh
+python -m cli.run_ingest_pipeline <city> <start_date> <end_date>
+```
+
+- `<city>`: Name of the city (e.g., `melbourne`)
+- `<start_date>`: Start date in `YYYY-MM-DD` format (e.g., `2025-02-01`)
+- `<end_date>`: End date in `YYYY-MM-DD` format (e.g., `2025-05-10`)
+
+**Example:**
+
+```sh
+python -m cli.run_ingest_pipeline melbourne 2025-02-01 2025-05-10
+```
+
+This will download property data for Melbourne between February 1, 2025 and May 10, 2025.
+
+---
+
+## 2. Populate the Vector Database with `populate_collection`
+
+This script populates a Chroma vector database collection with property details for semantic search.
+
+**Usage:**
+
+```sh
+python -m cli.populate_collection.py <collection_name> <property_details_path>
+```
+
+- `<collection_name>`: Name of the ChromaDB collection to populate (e.g., `melbourne`)
+- `<property_details_path>`: Path to the property details JSONL file (e.g., `downloaded_data/property_details.jsonl`)
+
+**Example:**
+
+```sh
+python -m cli.populate_collection.py melbourne downloaded_data/property_details.jsonl
+```
+
+---
+## 3. Run the server and the demo client
+```bash
+python -m cli.server
+```
+
+and
+
+```bash
+python -m cli.client
 ```
