@@ -6,7 +6,7 @@ The system includes:
 2. An MCP server with different search tools
 3. A demo client that sends queries and display results
 
-![alt text](image.png)
+![Diagram](docs/image.png)
 # Examples
 
 ```
