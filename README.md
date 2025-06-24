@@ -1,5 +1,10 @@
 # RealEstate MCP
-Search and answer questions about real estate properties in Australia. This project provides tools , and run a FastAPI server to provide a natural language property search API.
+## What problem is it solving?
+Real estate sites in Australia typically offer rigid, suburb-based filters that don’t match how people actually search. For example, a query like “renovated 3-bedroom homes in the Box Hill High School zone” simply isn’t possible.
+
+**This project leverages LLMs and MCP to enable flexible, natural language property search.**
+
+It allows users to search and ask questions about Australian real estate using publicly available property data. The project provides tools and runs a FastAPI server to serve a natural language property search API.
 
 The system includes:
 1. An indexing pipeline that downloads property data and populates a vector database for semantic search
